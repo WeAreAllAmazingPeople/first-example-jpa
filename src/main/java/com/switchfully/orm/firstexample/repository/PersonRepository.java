@@ -12,7 +12,18 @@ public class PersonRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<Person> getAll(){
+    // C => CREATE => 1
+    public void add(Person person) {
+        entityManager.persist(person);
+
+    }
+
+    // R => READ => 3. 10, 20, 30
+    public Person findById(int id) {
+        return entityManager.find(Person.class, id);
+    }
+
+    public List<Person> getAll() {
         return entityManager.createQuery("select p from Person p", Person.class).getResultList();
     }
 
@@ -21,5 +32,12 @@ public class PersonRepository {
                 .setParameter("firstName", firstName)
                 .setMaxResults(1)
                 .getSingleResult();
+    }
+
+// U => Update => 0
+
+    // D => Delete => 1
+    public void remove(Person person) {
+        entityManager.remove(person);
     }
 }

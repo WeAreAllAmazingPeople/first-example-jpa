@@ -1,16 +1,17 @@
 package com.switchfully.orm.firstexample;
 
-import com.switchfully.orm.firstexample.repository.PersonRepository;
+import com.switchfully.orm.firstexample.entities.Person;
+import com.switchfully.orm.firstexample.service.PersonService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class FirstExampleApplication implements CommandLineRunner {
-    private PersonRepository repository;
+    private PersonService service;
 
-    public FirstExampleApplication(PersonRepository repository) {
-        this.repository = repository;
+    public FirstExampleApplication(PersonService service) {
+        this.service = service;
     }
 
     public static void main(String[] args) {
@@ -19,7 +20,22 @@ public class FirstExampleApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(repository.getByFirstName("Chris"));
-        //repository.getAll().forEach(System.out::println);
+        //System.out.println(service.getByFirstName("Chris"));
+        Person lis = new Person();
+        lis.setId(22);
+        lis.setFirstName("Lis");
+        lis.setLastName("Verheyden");
+
+        service.add(lis);
+
+        service.changeLastName(5, "B");
+        //System.out.println(result);
+//
+        service.getAll().forEach(System.out::println);
+//
+//        Person lis = service.getByFirstName("Lis");
+//        service.remove(lis);
+
+//        service.removeByFirstName("Lis");
     }
 }
