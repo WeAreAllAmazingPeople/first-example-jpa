@@ -1,7 +1,8 @@
 package com.switchfully.orm.firstexample.service;
 
+import com.switchfully.orm.firstexample.entities.Name;
 import com.switchfully.orm.firstexample.entities.Person;
-import com.switchfully.orm.firstexample.repository.PersonRepository;
+import com.switchfully.orm.firstexample.repository.PersonRepositoryWithEntityManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,9 +11,9 @@ import java.util.List;
 @Service
 @Transactional
 public class PersonService {
-    private PersonRepository repository;
+    private PersonRepositoryWithEntityManager repository;
 
-    public PersonService(PersonRepository repository) {
+    public PersonService(PersonRepositoryWithEntityManager repository) {
         this.repository = repository;
     }
 
@@ -37,9 +38,9 @@ public class PersonService {
         repository.remove(person);
     }
 
-    public void changeLastName(int id, String newLastName) {
+    public void changeName(int id, Name name) {
         Person result = repository.findById(id);
-        result.setLastName(newLastName);
+        result.setName(name);
         // no code here
     }
 
